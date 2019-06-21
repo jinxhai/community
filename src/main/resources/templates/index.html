@@ -24,14 +24,9 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-<<<<<<< HEAD
                 <li><a href="#">登录</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我<span class="caret"></span></a>
-=======
                 <li class="dropdown" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
->>>>>>> 0ac639ed7b2980887299b709a38c3bf9f30e09a6
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -40,12 +35,9 @@
                         <li><a href="#">Separated link</a></li>
                     </ul>
                 </li>
-<<<<<<< HEAD
-=======
                 <li th:if="${session.user == null}">
                     <a href="https://github.com/login/oauth/authorize?client_id=f67c3221c39d7d750229&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
                 </li>
->>>>>>> 0ac639ed7b2980887299b709a38c3bf9f30e09a6
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
