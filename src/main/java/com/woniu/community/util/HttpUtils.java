@@ -24,6 +24,7 @@ public class HttpUtils {
     public static String httpPost(AccessToken accessToken,String url){
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
+        //参数
         String jsonStr = JSONObject.toJSONString(accessToken);
         RequestBody body = RequestBody.create(JSON,jsonStr);
         Request request = new Request.Builder()
@@ -44,6 +45,12 @@ public class HttpUtils {
         return  null;
     }
 
+    /**
+     * @Author JinXueHai
+     * @Description  get请求http链接
+     * @params
+     * @Date  2019/6/19 16:19
+     **/
     public static GithubUser httpGet(String url){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -52,6 +59,7 @@ public class HttpUtils {
         try {
             Response response = client.newCall(request).execute();
             String string = response.body().string();
+            System.out.println(string);
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             return  githubUser;
         } catch (IOException e) {

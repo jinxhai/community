@@ -25,18 +25,19 @@ public class IndexController {
     @GetMapping("/")
     public String index(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")){
-                String token = cookie.getValue();
-                //查登录时插入的user信息
-                User user = userMapper.findByToken(token);
-                if (user!=null){
-                    request.getSession().setAttribute("user",user);
+        if (cookies!=null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    //查登录时插入的user信息
+                    User user = userMapper.findByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
         }
-
 
         return "index";
     }
