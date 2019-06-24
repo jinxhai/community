@@ -3,6 +3,7 @@ package com.woniu.community.controller;
 import com.woniu.community.dao.UserMapper;
 import com.woniu.community.entity.AccessToken;
 import com.woniu.community.entity.GithubUser;
+import com.woniu.community.entity.Question;
 import com.woniu.community.entity.User;
 import com.woniu.community.util.HttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,7 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setCreateTime(System.currentTimeMillis());
             user.setModifiedTime(user.getModifiedTime());
+            user.setImgUrl(githubUser.getAvatar_url());
             userMapper.insertUser(user);
             response.addCookie(new Cookie("token",user.getToken()));
             //用户不为空，登录成功

@@ -1,10 +1,8 @@
 package com.woniu.community;
 
-import com.woniu.community.entity.Users;
 import com.woniu.community.util.HttpUtils;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
@@ -12,17 +10,13 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CommunityApplicationTests {
- //   private static ArrayList<Users> bookList = new ArrayList<Users>();
-
     @Test
     public void contextLoads() {
         HttpUtils.httpGet("http://localhost:9997/userService/user");
