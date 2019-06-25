@@ -1,6 +1,7 @@
 package com.woniu.community.controller;
 
 import com.woniu.community.dao.UserMapper;
+import com.woniu.community.entity.Pagination;
 import com.woniu.community.entity.Question;
 import com.woniu.community.entity.User;
 import com.woniu.community.serivce.QuestionService;
@@ -29,7 +30,7 @@ public class IndexController {
     private QuestionService questionService;
 
     @GetMapping("/")
-    public String index(HttpServletRequest request,Model model){
+    public String index(HttpServletRequest request,Model model,@RequestParam(name = "page",defaultValue = "1") Integer page,@RequestParam(name = "size",defaultValue = "5") Integer size){
         Cookie[] cookies = request.getCookies();
         if (cookies!=null) {
             for (Cookie cookie : cookies) {
@@ -39,10 +40,10 @@ public class IndexController {
                     User user = userMapper.findByToken(token);
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
-
+                        System.out.println(user.getUserId());
                         //加载发现问题
-                        List<Question> questions = questionService.findListByUserId(user.getUserId());
-                        model.addAttribute("questions",questions);
+                        Pagination pagination = questionService.findListByUserId(user.getUserId(),page,size);
+                        model.addAttribute("pagination",pagination);
                     }
                     break;
 

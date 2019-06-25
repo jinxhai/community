@@ -2,6 +2,7 @@ package com.woniu.community.serivce.impl;
 
 import com.woniu.community.dao.QuestionMapper;
 import com.woniu.community.dao.UserMapper;
+import com.woniu.community.entity.Pagination;
 import com.woniu.community.entity.Question;
 import com.woniu.community.entity.User;
 import com.woniu.community.serivce.QuestionService;
@@ -24,14 +25,18 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private UserMapper userMapper;
     @Override
-    public List<Question> findListByUserId(Integer Id) {
-
-        List<Question> questions = questionMapper.selectList(Id);
+    public Pagination findListByUserId(Integer id,Integer page,Integer size) {
+        Pagination pagination = new Pagination();
+        Integer offset = size *(page-1);
+        List<Question> questions = questionMapper.selectList(id,offset,size);
         for (Question question : questions) {
             User user = userMapper.findById(question.getCreatorId());
             question.setUser(user);
         }
 
-        return questions;
+        Integer totalCount = questionMapper.selectQuestionCount();
+        pagination.setQuestionLIST(questions);
+        pagination.setPagination(totalCount,page,size);
+        return pagination;
     }
 }
