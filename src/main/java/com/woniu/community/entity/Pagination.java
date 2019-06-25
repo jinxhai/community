@@ -19,17 +19,27 @@ public class Pagination {
     private boolean showEndPage;
     private Integer page;
     private List<Integer> pages = new ArrayList<>();//
-
+    private Integer totalPage;
     //总记录数,当前页码数,每页显示记录数
     public  void  setPagination(Integer totalCount,Integer page,Integer size){
         //总页数
-        Integer totalPage;
+    //    Integer totalPage;
         if (totalCount % size == 0){
             totalPage = totalCount/size;
         }else {
             //证明多一页
             totalPage = totalCount/size +1;
         }
+
+        //第一页和最后一页的处理
+        if (page < 1){
+            page=1;
+        }
+        if (page>totalPage){
+            page=totalPage;
+        }
+        //肤质给当前类的page
+        this.page = page;
 
         //判断页码显示
         pages.add(page);
