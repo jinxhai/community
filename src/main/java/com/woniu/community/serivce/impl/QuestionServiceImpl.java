@@ -24,6 +24,22 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public Pagination findList(Integer page, Integer size) {
+        Pagination pagination = new Pagination();
+        Integer offset = size *(page-1);
+        List<Question> questions = questionMapper.listAll(offset,size);
+        for (Question question : questions) {
+            User user = userMapper.findById(question.getCreatorId());
+            question.setUser(user);
+        }
+        Integer totalCount = questionMapper.selectQuestionListCount();
+        pagination.setQuestions(questions);
+        pagination.setPagination(totalCount,page,size);
+        return pagination;
+    }
+
     @Override
     public Pagination findListByUserId(Integer id,Integer page,Integer size) {
         Pagination pagination = new Pagination();
@@ -34,8 +50,8 @@ public class QuestionServiceImpl implements QuestionService {
             question.setUser(user);
         }
 
-        Integer totalCount = questionMapper.selectQuestionCount();
-        pagination.setQuestionLIST(questions);
+        Integer totalCount = questionMapper.selectQuestionCount(id);
+        pagination.setQuestions(questions);
         pagination.setPagination(totalCount,page,size);
         return pagination;
     }

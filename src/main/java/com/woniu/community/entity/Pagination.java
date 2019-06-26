@@ -12,7 +12,7 @@ import java.util.List;
  */
  @Data
 public class Pagination {
-    private List<Question> questionLIST;
+    private List<Question> questions;
     private boolean showPrevious; //<
     private boolean showNext; //>
     private boolean showFristPage;
@@ -35,7 +35,7 @@ public class Pagination {
         if (page < 1){
             page=1;
         }
-        if (page>totalPage){
+        if (page > totalPage){
             page=totalPage;
         }
         //肤质给当前类的page
@@ -68,16 +68,16 @@ public class Pagination {
         }
 
         //是否展示第一页
-        if (pages.contains(1)){
+        if (page == 1){
             showFristPage = false;
         }else {
-            showFristPage =true;
+            showFristPage = true;
         }
         //是否展示第一页
-        if (pages.contains(totalPage)){
+        if (page.equals(totalPage)){
             showEndPage = false;
         }else {
-            showEndPage =true;
+            showEndPage = true;
         }
 
 
