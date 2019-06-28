@@ -55,4 +55,12 @@ public class QuestionServiceImpl implements QuestionService {
         pagination.setPagination(totalCount,page,size);
         return pagination;
     }
+
+    @Override
+    public Question findById(Integer id) {
+        Question question = questionMapper.findById(id);
+        User user = userMapper.findById(question.getCreatorId());
+        question.setUser(user);
+        return question;
+    }
 }

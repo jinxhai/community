@@ -9,4 +9,6 @@ public interface QuestionService {
     public Pagination findList(Integer page, Integer size);
 
     public Pagination findListByUserId(Integer id, Integer page, Integer size);
+
+    Question findById(Integer id);
 }
